@@ -58,7 +58,6 @@ export function RegisterForm() {
       headerLabel={"Crea tu cuenta"}
       backButtonLabel={"¿Ya tienes cuenta?"}
       backButtonHref={"/auth/login"}
-      showSocial
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

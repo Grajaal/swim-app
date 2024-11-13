@@ -8,7 +8,7 @@ export function Social() {
   return (
     <div className="flex items-center w-full gap-x-2">
       <Button
-        onClick={() => signIn("google", { redirectTo: "/complete-profile" })}
+        onClick={() => signIn("google")}
         size="lg"
         className="w-full"
         variant="outline"
