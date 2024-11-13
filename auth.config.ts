@@ -9,6 +9,7 @@ import { getUserByEmail } from "@/data/user";
 export default {
   providers: [
     Credentials({
+
       async authorize(credentials) {
         const validatedFields = LoginSchema.safeParse(credentials);
 

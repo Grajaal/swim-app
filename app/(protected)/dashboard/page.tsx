@@ -10,7 +10,7 @@ export default async function DashboardPage() {
         action={async () => {
           "use server";
 
-          await signOut();
+          await signOut({ redirectTo: "/auth/login" });
         }}
       >
         <button type="submit">Cerrar sesión</button>
