@@ -26,7 +26,7 @@ model User {
   password      String?
   role          Role?
   image         String?
-  isFirstLogin  Boolean   @default(true)
+  hasTeam       Boolean   @default(false)
   accounts      Account[]
 
   createdAt DateTime @default(now()) @map("created_at")
