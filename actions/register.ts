@@ -6,6 +6,8 @@ import { db } from "@/lib/db";
 import * as z from "zod";
 import { RegisterSchema } from "@/schemas";
 import { getUserByEmail } from "@/data/user";
+import { Role } from "@prisma/client";
+import { createTeam } from "./team";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validatedFields = RegisterSchema.safeParse(values);
@@ -25,7 +27,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
   console.log(role);
 
-  await db.user.create({
+  const createdUser = await db.user.create({
     data: {
       name,
       email,
@@ -33,6 +35,18 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
       role,
     },
   });
+
+  if (values.role === Role.coach) {
+    
+    const createdTeam = await createTeam();
+
+    await db.coach.create({
+      data: {
+        id: createdUser.id,
+        teamId: createdTeam.id
+      },
+    });
+  }
 
   return { success: "Registro completado." };
 };

@@ -1,20 +1,14 @@
-import { auth, signOut } from "@/auth";
+import CoachDasboard from "@/components/coach/coach-dashboard";
+import SwimmerDashboard from "@/components/swimmer/swimmer-dashboard";
+import { currentUser } from "@/lib/auth";
+import { Role } from "@prisma/client";
 
 export default async function DashboardPage() {
-  const session = await auth();
+  const user = await currentUser();
 
-  return (
-    <div>
-      {JSON.stringify(session)}
-      <form
-        action={async () => {
-          "use server";
+  if (user?.role === Role.coach) {
+    return <CoachDasboard />;
+  }
 
-          await signOut({ redirectTo: "/auth/login" });
-        }}
-      >
-        <button type="submit">Cerrar sesión</button>
-      </form>
-    </div>
-  );
+  return <SwimmerDashboard />;
 }

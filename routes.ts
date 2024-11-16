@@ -30,3 +30,5 @@ export const apiAuthPrefix = "/api/auth";
  * @type {string}
  */
 export const DEFAULT_LOGIN_REDIRECT = '/dashboard'
+// export const DEFAULT_COACH_LOGIN_REDIRECT = '/coach/dashboard'
+// export const DEFAULT_SWIMMER_LOGIN_REDIRECT = '/swimmer/dashboard'

@@ -26,6 +26,7 @@ model User {
   password      String?
   role          Role?
   image         String?
+  isFirstLogin  Boolean   @default(true)
   accounts      Account[]
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -60,8 +61,7 @@ model Swimmer {
 }
 
 model Team {
-  id       String     @id @default(cuid())
-  code     String     @unique
+  id     String     @id 
 
   swimmers Swimmer[]
   coach    Coach?      
