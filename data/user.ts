@@ -19,6 +19,10 @@ export async function getUserById(id: string) {
     const user = await db.user.findUnique({
       where: {
         id, 
+      }, 
+      include: {
+        coach: true, 
+        swimmer: true,
       }
     }); 
     
@@ -26,4 +30,12 @@ export async function getUserById(id: string) {
   } catch {
     return null
   }
+}
+
+export async function userHasTeam(id: string | undefined) {
+  if (!id) throw Error("User has no id")
+
+  const user = await getUserById(id);
+
+  return user?.hasTeam;
 }

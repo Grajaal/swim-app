@@ -7,7 +7,7 @@ export default async function SwimmerDashboard() {
   const user = await currentUser();
 
   return (
-    <div className="m-2">
+    <div>
       <SwimmerNavbar />
       <span>{JSON.stringify(user, null, 2)}</span>
     </div>

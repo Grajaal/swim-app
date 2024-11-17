@@ -51,13 +51,30 @@ model Coach {
 
 model Swimmer {
   id       String @id
-  teamId   String
+  teamId   String?
 
   team     Team?   @relation(fields: [teamId], references: [id])
   user     User   @relation(fields: [id], references: [id])
+  data     SwimmerData[]
   
 
   @@map("swimmers")
+}
+
+model SwimmerData {
+  id            String      @id @default(cuid())
+  date          DateTime    @default(now())
+  sleepHours    Int?        @map("sleep_hours")
+  sleepQuality  Int?        @map("sleep_quality")
+  fatigue       Int?
+  musclePain    Int?        @map("muscle_pain")
+  stress        Int?       
+
+  swimmerId     String      
+
+  swimmer       Swimmer     @relation(fields: [swimmerId], references: [id])
+
+  @@map("swimmers_data")
 }
 
 model Team {

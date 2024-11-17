@@ -1,4 +1,3 @@
-import { useCurrentUser } from "@/hooks/use-current-user";
 import { UserButton } from "@/components/auth/user-button";
 import { currentUser } from "@/lib/auth";
 

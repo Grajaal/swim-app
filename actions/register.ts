@@ -7,7 +7,7 @@ import * as z from "zod";
 import { RegisterSchema } from "@/schemas";
 import { getUserByEmail } from "@/data/user";
 import { Role } from "@prisma/client";
-import { createTeam } from "./team";
+import { createTeam } from "../data/team";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validatedFields = RegisterSchema.safeParse(values);
@@ -46,6 +46,21 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
         teamId: createdTeam.id
       },
     });
+
+    db.user.update({
+      where: {
+        id: createdUser.id,
+      }, 
+      data: {
+        hasTeam: true
+      }
+    })
+  } else if (values.role === Role.swimmer) {
+    await db.swimmer.create({
+      data: {
+        id: createdUser.id,
+      }
+    })
   }
 
   return { success: "Registro completado." };
