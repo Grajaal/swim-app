@@ -50,11 +50,11 @@ model Coach {
 }
 
 model Swimmer {
-  id       String @id
+  id       String           @id
   teamId   String?
 
-  team     Team?   @relation(fields: [teamId], references: [id])
-  user     User   @relation(fields: [id], references: [id])
+  team     Team?            @relation(fields: [teamId], references: [id])
+  user     User             @relation(fields: [id], references: [id])
   data     SwimmerData[]
   
 

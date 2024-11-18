@@ -16,7 +16,7 @@ export async function createSwimmerData(values: z.infer<typeof SwimmerDataSchema
 
   const { fatigue, musclePain, sleepHours, sleepQuality, stress} = validatedFields.data;
 
-  if (!sessionUser || !sessionUser.id) return;
+  if (!sessionUser || !sessionUser.id) return { error: "No hay usuario en la sesión" };
 
   await db.swimmerData.create({
     data: {

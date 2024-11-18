@@ -1,7 +1,7 @@
-import { SwimmerNavbar } from "./swimmer-navbar";
 import { DataForm } from "./data-form";
 import { currentUser } from "@/lib/auth";
 import { hasCompletedForm } from "@/data/swimmer";
+import { CompletedForm } from "./completed-form";
 
 export default async function SwimmerDashboard() {
   const sessionUser = await currentUser();
@@ -11,9 +11,10 @@ export default async function SwimmerDashboard() {
   const isCompleted = await hasCompletedForm(sessionUser.id, new Date());
 
   return (
-    <div className="p-2">
-      <SwimmerNavbar />
-      {isCompleted ? <p>Formulario completado!</p> : <DataForm />}
+    <div className="h-screen flex flex-col p-2">
+      <div className="flex-1 flex justify-center items-center">
+        {isCompleted ? <CompletedForm /> : <DataForm />}
+      </div>
     </div>
   );
 }

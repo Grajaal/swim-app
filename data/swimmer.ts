@@ -2,6 +2,20 @@
 
 import { db } from "@/lib/db";
 
+export async function createSwimmer(id: string) {
+  try {
+    await db.swimmer.create({
+      data: {
+        id, 
+      }
+    })
+  } catch (e) {
+    console.error("Database error: (createSwimmer)", e);
+    throw Error("Database error in createSwimmer"); 
+  }
+}
+
+
 export async function hasCompletedForm(swimmerId: string, date: Date) {
   try {
     const startOfDay = new Date(date.setHours(0, 0, 0, 0));

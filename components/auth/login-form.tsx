@@ -53,6 +53,7 @@ export function LoginForm() {
       headerLabel="Bienvenido de nuevo"
       backButtonLabel="¿No tienes cuenta?"
       backButtonHref="/auth/register"
+      showSocial
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

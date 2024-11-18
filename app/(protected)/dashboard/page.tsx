@@ -8,13 +8,19 @@ import { redirect } from "next/navigation";
 export default async function DashboardPage() {
   const user = await currentUser();
 
-  if (!user || !user.id) return <p>No estás autenticado.</p>;
+  if (!user || !user.id) {
+    redirect("/auth/login");
+  }
 
   if (user?.role === Role.coach) {
     return <CoachDasboard />;
   }
 
   const isInTeam = await hasTeam(user.id);
+
+  if (!user.role) {
+    redirect("/complete-profile");
+  }
 
   if (!isInTeam) {
     redirect("/join-team");

@@ -17,5 +17,7 @@ export async function updateRole(role: Role) {
     },
   });
 
+  
+
   redirect("/dashboard");
 }
