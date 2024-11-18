@@ -1,4 +1,3 @@
-import { User } from "next-auth";
 import { CoachNavbar } from "./coach-navbar";
 import TeamMembersCard from "@/components/coach/team-members-card";
 

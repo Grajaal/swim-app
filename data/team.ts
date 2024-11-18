@@ -1,7 +1,5 @@
-import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { generateCode } from "@/lib/generate-code";
-import { redirect } from "next/navigation";
 
 export async function getTeamByCoachId(id: string) {
   const coach = await db.coach.findUnique({

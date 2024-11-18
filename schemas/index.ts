@@ -24,3 +24,55 @@ export const RegisterSchema = z.object({
     message: 'Elige tu rol.'
   })
 })
+
+export const SwimmerDataSchema = z.object({
+  sleepHours: z
+    .coerce.number({
+      message: "Introduce un número"
+    })
+    .int({
+      message: "Tiene que ser un número entero."
+    })
+    .min(0, "Las horas de sueño no pueden ser negativas.")
+    .max(24, "Las horas de sueño no pueden superar 24."),
+
+  sleepQuality: z
+    .coerce.number({
+      message: "Introduce un número"
+    })  
+    .int({
+      message: "Tiene que ser un número entero."
+    })
+    .min(1, "La calidad de sueño deber ser al menos 1.")
+    .max(10, "La calidad de sueño no puede superar 10."), 
+
+  fatigue: z
+    .coerce.number({
+      message: "Introduce un número"
+    })
+    .int({
+      message: "Tiene que ser un número entero."
+    })
+    .min(1, "El nivel de fatiga deber ser al menos 1.")
+    .max(10, "El nivel de fatiga no puede superar 10."), 
+
+  musclePain: z
+    .coerce.number({
+      message: "Introduce un número"
+    })
+    .int({
+      message: "Tiene que ser un número entero."
+    })
+    .min(1, "El dolor muscular debe ser al menos 1.")
+    .max(10, "El dolor muscular no puede superar 10."), 
+
+  stress: z
+    .coerce.number({
+      message: "Introduce un número"
+    })
+    .int({
+      message: "Tiene que ser un número entero."
+    })
+    .min(1, "El nivel de estrés deber ser al menos 1.")
+    .max(10, "El nivel de estrés no puede superar 10."), 
+})

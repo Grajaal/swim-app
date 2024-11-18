@@ -20,7 +20,7 @@ import { CardWrapper } from "@/components/auth/card-wrapper";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
-import { FormSuccess } from "../form-success";
+import { FormSuccess } from "@/components/form-success";
 import { login } from "@/actions/login";
 
 export function LoginForm() {

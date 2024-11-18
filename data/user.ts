@@ -25,17 +25,11 @@ export async function getUserById(id: string) {
         swimmer: true,
       }
     }); 
+
     
     return user; 
-  } catch {
-    return null
+  } catch (e){
+    console.error("Database error: ", e); 
+    throw Error("Database error: getUserById")
   }
-}
-
-export async function userHasTeam(id: string | undefined) {
-  if (!id) throw Error("User has no id")
-
-  const user = await getUserById(id);
-
-  return user?.hasTeam;
 }
