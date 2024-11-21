@@ -1,19 +1,23 @@
-import TeamMembersCard from "@/components/coach/team-members-card";
 import { currentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { TodayDate } from "../today-date";
+import { Card } from "../ui/card";
+import { DailyRegister } from "@/components/coach/daily-register";
 
 export default async function CoachDasboard() {
-  const sessionUser = await currentUser();
-
-  if (!sessionUser || !sessionUser.id) {
-    redirect("/auth/login");
-  }
+  const userSession = await currentUser();
+  if (!userSession?.id) redirect("/auth/login");
 
   return (
-    <div className="h-screen flex flex-col p-2">
-      <div className="flex-1 flex justify-center items-center">
-        <TeamMembersCard />
-      </div>
+    <div className="p-4 grid grid-rows-3 grid-cols-[2fr,1fr] gap-4 h-full">
+      <TodayDate />
+      <DailyRegister className="row-span-2" />
+      <Card>
+        <h2>Encuesta diaria</h2>
+      </Card>
+      <Card className="col-span-2">
+        <h2>Rendimiento semanal general</h2>
+      </Card>
     </div>
   );
 }

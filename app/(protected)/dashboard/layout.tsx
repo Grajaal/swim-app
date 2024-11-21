@@ -1,6 +1,7 @@
-import { CoachNavbar } from "@/components/coach/coach-navbar";
+import CoachHeader from "@/components/coach/coach-header";
+import { CoachSidebar } from "@/components/coach/coach-sidebar";
 import { SwimmerNavbar } from "@/components/swimmer/swimmer-navbar";
-import { getTeamByCoachId } from "@/data/team";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { currentUser } from "@/lib/auth";
 import { Role } from "@prisma/client";
 import { redirect } from "next/navigation";
@@ -13,18 +14,30 @@ export default async function DasboardLayout({
 }) {
   const userSession = await currentUser();
 
-  if (!userSession || !userSession.id) {
+  if (
+    !userSession ||
+    !userSession.id ||
+    !userSession.name ||
+    !userSession.email
+  ) {
     redirect("/auth/login");
   }
 
-  const team = await getTeamByCoachId(userSession.id);
+  const user = {
+    name: userSession.name,
+    email: userSession.email,
+    avatar: userSession.image || "",
+  };
 
   if (userSession.role === Role.coach) {
     return (
-      <div className="p-2">
-        <CoachNavbar teamId={team?.id} />
-        {children}
-      </div>
+      <SidebarProvider>
+        <CoachSidebar user={user} />
+        <SidebarInset>
+          <CoachHeader />
+          <div className="flex flex-col flex-1">{children}</div>
+        </SidebarInset>
+      </SidebarProvider>
     );
   }
 

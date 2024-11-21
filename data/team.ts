@@ -1,7 +1,8 @@
 import { db } from "@/lib/db";
 import { generateCode } from "@/lib/generate-code";
 
-export async function getTeamByCoachId(id: string) {
+export async function getTeamByCoachId(id: string | undefined) {
+
   const coach = await db.coach.findUnique({
     where: {
       id

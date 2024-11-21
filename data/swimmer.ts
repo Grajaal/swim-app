@@ -58,7 +58,12 @@ export async function hasTeam(swimmerId: string) {
   }
 }
 
-export async function getSwimmersFromTeam(teamId: string) {
+export async function getSwimmersFromTeam(teamId: string | undefined) {
+
+  if (!teamId) {
+    return [];
+  }
+
   const swimmers = await db.swimmer.findMany({
     where: {
       teamId,
