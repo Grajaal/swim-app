@@ -39,23 +39,26 @@ model User {
 }
 
 model Coach {
-  id      String @id
-  teamId  String @unique
+  id            String            @id
+  teamId        String            @unique
 
-  team    Team   @relation(fields: [teamId], references: [id])
-  user    User   @relation(fields: [id], references: [id])
+  team          Team              @relation(fields: [teamId], references: [id])
+  user          User              @relation(fields: [id], references: [id])
+  swimmerGroup  SwimmerGroup[]
   
 
   @@map("coaches")
 }
 
 model Swimmer {
-  id       String           @id
-  teamId   String?
+  id                String           @id
+  teamId            String?
+  swimmerGroupId    String?          @map("swimmer_group_id")
 
-  team     Team?            @relation(fields: [teamId], references: [id])
-  user     User             @relation(fields: [id], references: [id])
-  data     SwimmerData[]
+  team               Team?            @relation(fields: [teamId], references: [id])
+  user               User             @relation(fields: [id], references: [id])
+  data               SwimmerData[]
+  swimmerGroup       SwimmerGroup?    @relation(fields: [swimmerGroupId], references: [id])
   
 
   @@map("swimmers")
@@ -75,6 +78,32 @@ model SwimmerData {
   swimmer       Swimmer     @relation(fields: [swimmerId], references: [id])
 
   @@map("swimmers_data")
+}
+
+model SwimmerGroup {
+  id                String              @id @default(cuid())
+  name              String       
+
+  coachId           String        
+
+  coach             Coach               @relation(fields: [coachId], references: [id])
+  swimmers          Swimmer[]   
+  groupTraining     GroupTraining[]    
+
+  @@map("swimmer_groups")
+}
+
+model GroupTraining {
+  id                String            @id @default(cuid())
+  date              DateTime          @default(now())
+  meters            Int
+  time              Int
+
+  swimmerGroupId    String
+
+  swimmerGroup      SwimmerGroup      @relation(fields: [swimmerGroupId], references: [id])
+
+  @@map("group_trainings")
 }
 
 model Team {
