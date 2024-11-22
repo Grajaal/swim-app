@@ -44,7 +44,6 @@ model Coach {
 
   team          Team              @relation(fields: [teamId], references: [id])
   user          User              @relation(fields: [id], references: [id])
-  swimmerGroup  SwimmerGroup[]
   
 
   @@map("coaches")
@@ -84,9 +83,9 @@ model SwimmerGroup {
   id                String              @id @default(cuid())
   name              String       
 
-  coachId           String        
+  teamId            String        
 
-  coach             Coach               @relation(fields: [coachId], references: [id])
+  team              Team               @relation(fields: [teamId], references: [id])
   swimmers          Swimmer[]   
   groupTraining     GroupTraining[]    
 
@@ -107,10 +106,12 @@ model GroupTraining {
 }
 
 model Team {
-  id     String     @id 
+  id                String     @id 
 
-  swimmers Swimmer[]
-  coach    Coach?      
+  swimmers          Swimmer[]
+  coach             Coach?    
+
+  swimmerGroups     SwimmerGroup[]
   
 
   @@map("teams")

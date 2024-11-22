@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Copy } from "lucide-react";
 import { toast } from "sonner";
 
-export async function CopyCode({ code }: { code: string | undefined }) {
+export function CopyCode({ code }: { code: string | undefined }) {
   const handleCopy = () => {
     if (code) {
       navigator.clipboard.writeText(code).then(() => {

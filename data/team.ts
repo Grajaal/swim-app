@@ -12,7 +12,7 @@ export async function getTeamByCoachId(id: string | undefined) {
     }
   })
 
-  return coach?.team;
+  return coach!.team;
 }
 
 export async function createTeam() {

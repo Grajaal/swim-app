@@ -76,3 +76,14 @@ export const SwimmerDataSchema = z.object({
     .min(1, "El nivel de estrés deber ser al menos 1.")
     .max(10, "El nivel de estrés no puede superar 10."), 
 })
+
+export const CreateGroupSchema = z.object({
+  groupName: z
+    .string()
+    .min(1, { message: "Elige el nombre del grupo."}), 
+  swimmers: z
+    .array(z.string().min(1))
+    .min(1)
+    .nonempty("Elige al menos un nadador.")
+
+})

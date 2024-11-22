@@ -11,7 +11,7 @@ export async function currentUser() {
       !userSession.name || 
       !userSession.email)
   {
-      redirect("/auth/login");
+      throw new Error("auth problem")
   }
 
   return userSession; 

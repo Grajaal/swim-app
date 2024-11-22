@@ -1,6 +1,3 @@
-import { Swimmer } from "@prisma/client";
-import { User } from "next-auth";
+import { Prisma } from "@prisma/client";
 
-export type SwimmerWithUser = Swimmer & {
-  user: User;
-}
+export type SwimmerWithUser = Prisma.SwimmerGetPayload<{ include: { user: true } }>;

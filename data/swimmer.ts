@@ -1,6 +1,7 @@
 "use server";
 
 import { db } from "@/lib/db";
+import { toNamespacedPath } from "path";
 
 export async function createSwimmer(id: string) {
   try {
@@ -71,6 +72,20 @@ export async function getSwimmersFromTeam(teamId: string | undefined) {
     include: { 
       data: true,
       user: true,
+    }
+  })
+
+  return swimmers;
+}
+
+export async function getSwimmersByNames(swimmerNames: string[]) {
+  const swimmers = db.swimmer.findMany({
+    where: {
+      user: {
+        name: {
+          in: swimmerNames
+        }
+      }
     }
   })
 
