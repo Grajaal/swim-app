@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { TodayDate } from "../today-date";
 import { Card } from "../ui/card";
 import { DailyRegister } from "@/components/coach/daily-register";
-import { TrainingsCard } from "@/components/coach/trainings-card";
+import { TrainingsCard } from "@/components/coach/group/trainings-card";
 
 export default async function CoachDasboard() {
   const userSession = await currentUser();

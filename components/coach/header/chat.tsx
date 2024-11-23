@@ -1,15 +1,15 @@
 "use client";
 
 import { Bot, MessageSquare, User } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import {
   Dialog,
   DialogContent,
   DialogTrigger,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Input } from "../ui/input";
-import { ScrollArea } from "../ui/scroll-area";
+import { Input } from "../../ui/input";
+import { ScrollArea } from "../../ui/scroll-area";
 import { useState } from "react";
 
 type Message = {

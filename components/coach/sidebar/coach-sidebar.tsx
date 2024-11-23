@@ -10,7 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarTrigger,
-} from "../ui/sidebar";
+} from "../../ui/sidebar";
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -19,8 +19,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "../ui/button";
-import { LogoutButton } from "../auth/logout-button";
+import { Button } from "../../ui/button";
+import { LogoutButton } from "../../auth/logout-button";
 
 export function CoachSidebar({
   user,

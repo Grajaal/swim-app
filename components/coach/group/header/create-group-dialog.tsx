@@ -6,7 +6,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { CreateGroupForm } from "@/components/coach/create-group-form";
+import { CreateGroupForm } from "@/components/coach/group/header/create-group-form";
 import { getTeamByCoachId } from "@/data/team";
 import { currentUser } from "@/lib/auth";
 import { getSwimmersFromTeam } from "@/data/swimmer";
@@ -19,7 +19,7 @@ export async function CreateGroupDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Crear menu</Button>
+        <Button>Crear grupo</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

@@ -52,12 +52,12 @@ model Coach {
 model Swimmer {
   id                String           @id
   teamId            String?
-  swimmerGroupId    String?          @map("swimmer_group_id")
+  groupId           String?          @map("swimmer_group_id")
 
   team               Team?            @relation(fields: [teamId], references: [id])
   user               User             @relation(fields: [id], references: [id])
   data               SwimmerData[]
-  swimmerGroup       SwimmerGroup?    @relation(fields: [swimmerGroupId], references: [id])
+  group              Group?           @relation(fields: [groupId], references: [id])
   
 
   @@map("swimmers")
@@ -79,7 +79,7 @@ model SwimmerData {
   @@map("swimmers_data")
 }
 
-model SwimmerGroup {
+model Group {
   id                String              @id @default(cuid())
   name              String       
 
@@ -87,22 +87,22 @@ model SwimmerGroup {
 
   team              Team               @relation(fields: [teamId], references: [id])
   swimmers          Swimmer[]   
-  groupTraining     GroupTraining[]    
+  trainings         Training[]    
 
-  @@map("swimmer_groups")
+  @@map("groups")
 }
 
-model GroupTraining {
+model Training {
   id                String            @id @default(cuid())
   date              DateTime          @default(now())
   meters            Int
   time              Int
 
-  swimmerGroupId    String
+  groupId    String
 
-  swimmerGroup      SwimmerGroup      @relation(fields: [swimmerGroupId], references: [id])
+  group      Group      @relation(fields: [groupId], references: [id])
 
-  @@map("group_trainings")
+  @@map("trainings")
 }
 
 model Team {
@@ -111,7 +111,7 @@ model Team {
   swimmers          Swimmer[]
   coach             Coach?    
 
-  swimmerGroups     SwimmerGroup[]
+  groups            Group[]
   
 
   @@map("teams")

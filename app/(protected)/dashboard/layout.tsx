@@ -1,5 +1,5 @@
-import CoachHeader from "@/components/coach/coach-header";
-import { CoachSidebar } from "@/components/coach/coach-sidebar";
+import CoachHeader from "@/components/coach/header/coach-header";
+import { CoachSidebar } from "@/components/coach/sidebar/coach-sidebar";
 import { SwimmerNavbar } from "@/components/swimmer/swimmer-navbar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { currentUser } from "@/lib/auth";

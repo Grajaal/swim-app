@@ -17,14 +17,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { createGroup } from "@/actions/create-group";
+import { revalidatePath } from "next/cache";
+import { FormError } from "../../../form-error";
+import { useState } from "react";
 
-export function CreateGroupForm({
+export function EditGroupForm({
   teamId,
   swimmers,
 }: {
   teamId: string;
   swimmers: SwimmerWithUser[];
 }) {
+  const [error, setError] = useState<string>("");
+
   const form = useForm<z.infer<typeof CreateGroupSchema>>({
     resolver: zodResolver(CreateGroupSchema),
     defaultValues: {
@@ -44,7 +49,14 @@ export function CreateGroupForm({
   });
 
   const onSubmit = (values: z.infer<typeof CreateGroupSchema>) => {
-    createGroup(teamId, values.groupName, values.swimmers);
+    setError("");
+    const { groupName, swimmers } = values;
+
+    createGroup(teamId, groupName, swimmers).then((data) => {
+      if (data?.error) {
+        setError(data.error);
+      }
+    });
   };
 
   return (
@@ -81,6 +93,7 @@ export function CreateGroupForm({
               </FormItem>
             )}
           />
+          <FormError message={error} />
         </div>
         <div className="flex justify-end mt-6">
           <Button type="submit">Crear grupo</Button>

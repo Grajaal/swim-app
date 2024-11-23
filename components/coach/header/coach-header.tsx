@@ -1,10 +1,10 @@
 import { currentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { Chat } from "@/components/coach/chat";
+import { Chat } from "@/components/coach/header/chat";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { getTeamByCoachId } from "@/data/team";
-import { CopyCode } from "@/components/coach/copy-code";
-import { ModeToggle } from "../mode-toggle";
+import { CopyCode } from "@/components/coach/header/copy-code";
+import { ModeToggle } from "../../mode-toggle";
 
 export default async function CoachHeader() {
   const userSession = await currentUser();
