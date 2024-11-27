@@ -5,10 +5,18 @@ import { GroupWithSwimmer } from "@/prisma/custom";
 
 export function GroupsContainer({ groups }: { groups: GroupWithSwimmer[] }) {
   return (
-    <div className="space-y-4">
-      {groups.map((group) => (
-        <GroupItem key={group.id} group={group} />
-      ))}
-    </div>
+    <>
+      {groups.length > 0 ? (
+        <div className="space-y-4 w-full">
+          {groups.map((group) => (
+            <GroupItem key={group.id} group={group} />
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-1 justify-center items-center">
+          <span className="text-3xl text-muted-foreground">No hay grupos</span>
+        </div>
+      )}
+    </>
   );
 }

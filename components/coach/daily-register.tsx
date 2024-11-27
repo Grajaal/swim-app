@@ -28,7 +28,7 @@ export async function DailyRegister({ className }: { className?: string }) {
             <div key={swimmer.id} className="flex space-x-4 items-center">
               <Avatar>
                 <AvatarImage src={swimmer.user.image || ""} />
-                <AvatarFallback>
+                <AvatarFallback className="bg-muted-foreground">
                   <span className="text-lg">
                     {swimmer.user.name?.charAt(0)}
                   </span>

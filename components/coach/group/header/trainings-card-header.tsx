@@ -10,7 +10,9 @@ export function TrainingsCardHeader() {
           <CardTitle>Entrenamientos</CardTitle>
           <DatePicker />
         </div>
-        <CreateGroupDialog />
+        <div className="flex space-x-2 items-center">
+          <CreateGroupDialog />
+        </div>
       </div>
     </CardHeader>
   );

@@ -22,9 +22,10 @@ import {
   startOfToday,
 } from "date-fns";
 import { es } from "date-fns/locale";
+import { useDate } from "@/context/date-context";
 
 export function DatePicker() {
-  const [date, setDate] = useState<Date | undefined>(new Date());
+  const { date, setDate } = useDate();
 
   const formatDate = (date: Date | undefined) => {
     if (!date) return "Selecciona una fecha";

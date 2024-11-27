@@ -1,3 +1,5 @@
+"use server";
+
 import { createTeam } from "@/data/team";
 import { db } from "@/lib/db";
 import { updateHasTeam } from "./user";

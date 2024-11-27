@@ -1,7 +1,6 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { toNamespacedPath } from "path";
 
 export async function createSwimmer(id: string) {
   try {
@@ -19,6 +18,7 @@ export async function createSwimmer(id: string) {
 
 export async function hasCompletedForm(swimmerId: string, date: Date) {
   try {
+    date.setDate(date.getDate() + 1);
     const startOfDay = new Date(date.setHours(0, 0, 0, 0));
     const endOfDay = new Date(date.setHours(23, 59, 59, 999));
 
@@ -32,7 +32,24 @@ export async function hasCompletedForm(swimmerId: string, date: Date) {
       }
     })
 
-    return !!form;
+    if (!form) return false; 
+
+    const {
+      fatigue,
+      musclePain,
+      sleepHours,
+      sleepQuality,
+      stress,
+    } = form;
+
+    return !(
+      fatigue === null ||
+      musclePain === null ||
+      sleepHours === null ||
+      sleepQuality === null ||
+      stress === null
+    );
+
   } catch (e) {
     console.error("Database error:", e); 
     throw Error("Error en la base de datos.");

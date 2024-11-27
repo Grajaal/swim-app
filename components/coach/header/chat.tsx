@@ -45,7 +45,7 @@ export function Chat() {
           <MessageSquare className="mr-2 h-4 w-4" />
           Chatear con asistente
           <kbd className="inline-flex ml-auto bg-muted h-5 px-1.5 rounded items-center font-mono text-[12px] font-medium opacity-100">
-            <span className="text-sm">⌘</span>k
+            <span className="text-sm">ctrl </span>K
           </kbd>
         </Button>
       </DialogTrigger>

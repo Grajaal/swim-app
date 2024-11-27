@@ -16,9 +16,8 @@ import { CreateGroupSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { createGroup } from "@/actions/create-group";
-import { revalidatePath } from "next/cache";
-import { FormError } from "../../../form-error";
+import { createGroup } from "@/actions/group";
+import { FormError } from "@/components/form-error";
 import { useState } from "react";
 
 export function CreateGroupForm({

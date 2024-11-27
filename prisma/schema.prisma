@@ -57,7 +57,7 @@ model Swimmer {
   team               Team?            @relation(fields: [teamId], references: [id])
   user               User             @relation(fields: [id], references: [id])
   data               SwimmerData[]
-  group              Group?           @relation(fields: [groupId], references: [id])
+  group              Group[]
   
 
   @@map("swimmers")
@@ -65,18 +65,22 @@ model Swimmer {
 
 model SwimmerData {
   id            String      @id @default(cuid())
-  date          DateTime    @default(now())
+  date          DateTime    @default(now()) @db.Date
   sleepHours    Int?        @map("sleep_hours")
   sleepQuality  Int?        @map("sleep_quality")
   fatigue       Int?
   musclePain    Int?        @map("muscle_pain")
   stress        Int?       
 
-  swimmerId     String      
+  meters        Int?
+  minutes       Int?
+
+  swimmerId     String      @map("swimmer_id") 
 
   swimmer       Swimmer     @relation(fields: [swimmerId], references: [id])
 
   @@map("swimmers_data")
+  @@unique([swimmerId, date])
 }
 
 model Group {
@@ -87,22 +91,8 @@ model Group {
 
   team              Team               @relation(fields: [teamId], references: [id])
   swimmers          Swimmer[]   
-  trainings         Training[]    
 
   @@map("groups")
-}
-
-model Training {
-  id                String            @id @default(cuid())
-  date              DateTime          @default(now())
-  meters            Int
-  time              Int
-
-  groupId    String
-
-  group      Group      @relation(fields: [groupId], references: [id])
-
-  @@map("trainings")
 }
 
 model Team {

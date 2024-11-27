@@ -1,5 +1,5 @@
 "use client";
-import { Home, LogOut, Train } from "lucide-react";
+import { Home, LogOut, BotMessageSquare } from "lucide-react";
 import { usePathname } from "next/navigation";
 import {
   Sidebar,
@@ -9,13 +9,11 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
 } from "../../ui/sidebar";
 import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -63,10 +61,10 @@ export function CoachSidebar({
               size="lg"
               asChild
             >
-              <Link href="/dashboard/trainings">
+              <Link href="/dashboard/chat">
                 <div className="inline-flex items-center space-x-2 ml-2">
-                  <Train className="h-4 w-4" />
-                  <span className="text-lg">Entrenamientos</span>
+                  <BotMessageSquare className="h-4 w-4" />
+                  <span className="text-lg">Asistente</span>
                 </div>
               </Link>
             </SidebarMenuButton>

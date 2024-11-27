@@ -18,16 +18,29 @@ export async function createSwimmerData(values: z.infer<typeof SwimmerDataSchema
 
   if (!sessionUser || !sessionUser.id) return { error: "No hay usuario en la sesión" };
 
-  await db.swimmerData.create({
-    data: {
+  await db.swimmerData.upsert({
+    where: {
+      swimmerId_date: {
+        swimmerId: sessionUser.id, 
+        date: new Date(),
+      }
+    }, 
+    create: {
       swimmerId: sessionUser.id, 
       fatigue, 
       musclePain, 
       sleepHours, 
       sleepQuality, 
       stress, 
+    }, 
+    update: {
+      fatigue, 
+      musclePain, 
+      sleepHours, 
+      sleepQuality, 
+      stress, 
     }
-  }) 
+  })
 
   return { success: "Variables enviadas correctamente."}
 

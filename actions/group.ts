@@ -2,7 +2,10 @@
 
 import { getSwimmersByNames } from "@/data/swimmer";
 import { db } from "@/lib/db";
+import { CreateGroupSchema } from "@/schemas";
+import { Group } from "@prisma/client";
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
 
 export async function createGroup(teamId: string, name: string, swimmersNames: string[]) {
 
@@ -30,4 +33,8 @@ export async function createGroup(teamId: string, name: string, swimmersNames: s
   })
 
   revalidatePath("/dashboard")
+}
+
+export async function updateGroup(group: Group, values: z.infer<typeof CreateGroupSchema>) {
+  
 }

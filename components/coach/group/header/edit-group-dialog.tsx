@@ -8,9 +8,9 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { Pencil } from "lucide-react";
-import { EditGroupForm } from "@/components/coach/group/header/edit-group-form";
+import { GroupWithSwimmer } from "@/prisma/custom";
 
-export function EditGroupDialog() {
+export function EditGroupDialog({ group }: { group: GroupWithSwimmer }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -23,7 +23,6 @@ export function EditGroupDialog() {
         <DialogHeader>
           <DialogTitle>Editar grupo</DialogTitle>
         </DialogHeader>
-        <EditGroupForm />
       </DialogContent>
     </Dialog>
   );

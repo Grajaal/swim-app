@@ -2,6 +2,7 @@
 
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
+import { string } from "zod";
 
 export async function getGroupsFromTeam(teamId: string | undefined) {
 
@@ -33,4 +34,17 @@ export async function deleteGroup(id: string) {
   })
 
   revalidatePath("/dashboard")
+}
+
+export async function getGroupById(id: string) { 
+  const group = await db.group.findUnique({
+    where: {
+      id,
+    }, 
+    include: {
+      swimmers: true,
+    }
+  })
+
+  return group;
 }
