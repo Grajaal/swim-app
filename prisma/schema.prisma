@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,11 +5,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-enum Role {
-  coach
-  swimmer
 }
 
 model User {
@@ -27,91 +16,77 @@ model User {
   role          Role?
   image         String?
   hasTeam       Boolean   @default(false)
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
   accounts      Account[]
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  coach   Coach?
-  swimmer Swimmer?
+  coach         Coach?
+  swimmer       Swimmer?
 
   @@map("users")
 }
 
 model Coach {
-  id            String            @id
-  teamId        String            @unique
-
-  team          Team              @relation(fields: [teamId], references: [id])
-  user          User              @relation(fields: [id], references: [id])
-  
+  id     String @id
+  teamId String @unique
+  user   User   @relation(fields: [id], references: [id])
+  team   Team   @relation(fields: [teamId], references: [id])
 
   @@map("coaches")
 }
 
 model Swimmer {
-  id                String           @id
-  teamId            String?
-  groupId           String?          @map("swimmer_group_id")
-
-  team               Team?            @relation(fields: [teamId], references: [id])
-  user               User             @relation(fields: [id], references: [id])
-  data               SwimmerData[]
-  group              Group[]
-  
+  id      String        @id
+  teamId  String?
+  groupId String?       @map("swimmer_group_id")
+  user    User          @relation(fields: [id], references: [id])
+  team    Team?         @relation(fields: [teamId], references: [id])
+  data    SwimmerData[]
+  group   Group[]       @relation("GroupToSwimmer")
 
   @@map("swimmers")
 }
 
 model SwimmerData {
-  id            String      @id @default(cuid())
-  date          DateTime    @default(now()) @db.Date
-  sleepHours    Int?        @map("sleep_hours")
-  sleepQuality  Int?        @map("sleep_quality")
-  fatigue       Int?
-  musclePain    Int?        @map("muscle_pain")
-  stress        Int?       
+  id           String   @id @default(cuid())
+  date         DateTime @default(now()) @db.Date
+  sleepHours   Int?     @map("sleep_hours")
+  sleepQuality Int?     @map("sleep_quality")
+  fatigue      Int?
+  musclePain   Int?     @map("muscle_pain")
+  stress       Int?
+  meters       Int?
+  minutes      Int?
+  swimmerId    String   @map("swimmer_id")
+  swimmer      Swimmer  @relation(fields: [swimmerId], references: [id])
 
-  meters        Int?
-  minutes       Int?
-
-  swimmerId     String      @map("swimmer_id") 
-
-  swimmer       Swimmer     @relation(fields: [swimmerId], references: [id])
-
-  @@map("swimmers_data")
   @@unique([swimmerId, date])
+  @@map("swimmers_data")
 }
 
 model Group {
-  id                String              @id @default(cuid())
-  name              String       
-
-  teamId            String        
-
-  team              Team               @relation(fields: [teamId], references: [id])
-  swimmers          Swimmer[]   
+  id       String    @id @default(cuid())
+  name     String
+  teamId   String
+  team     Team      @relation(fields: [teamId], references: [id])
+  swimmers Swimmer[] @relation("GroupToSwimmer")
 
   @@map("groups")
 }
 
 model Team {
-  id                String     @id 
-
-  swimmers          Swimmer[]
-  coach             Coach?    
-
-  groups            Group[]
-  
+  id       String    @id
+  coach    Coach?
+  groups   Group[]
+  swimmers Swimmer[]
 
   @@map("teams")
 }
 
 model Account {
-  userId            String  @map("user_id")
+  userId            String   @map("user_id")
   type              String
   provider          String
-  providerAccountId String  @map("provider_account_id")
+  providerAccountId String   @map("provider_account_id")
   refresh_token     String?
   access_token      String?
   expires_at        Int?
@@ -119,12 +94,15 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
   @@map("accounts")
+}
+
+enum Role {
+  coach
+  swimmer
 }

@@ -6,12 +6,12 @@ export async function createSwimmer(id: string) {
   try {
     await db.swimmer.create({
       data: {
-        id, 
+        id,
       }
     })
   } catch (e) {
     console.error("Database error: (createSwimmer)", e);
-    throw Error("Database error in createSwimmer"); 
+    throw Error("Database error in createSwimmer");
   }
 }
 
@@ -32,7 +32,7 @@ export async function hasCompletedForm(swimmerId: string, date: Date) {
       }
     })
 
-    if (!form) return false; 
+    if (!form) return false;
 
     const {
       fatigue,
@@ -51,7 +51,7 @@ export async function hasCompletedForm(swimmerId: string, date: Date) {
     );
 
   } catch (e) {
-    console.error("Database error:", e); 
+    console.error("Database error:", e);
     throw Error("Error en la base de datos.");
   }
 }
@@ -61,17 +61,17 @@ export async function hasTeam(swimmerId: string) {
     const swimmer = await db.swimmer.findUnique({
       where: {
         id: swimmerId,
-      }, 
+      },
       include: {
         user: true,
       }
     })
-  
+
     const hasTeam = swimmer?.user.hasTeam;
-  
+
     return hasTeam;
   } catch (e) {
-    console.error("Database error (hasTeam): ", e); 
+    console.error("Database error (hasTeam): ", e);
     throw Error("Database error: hasTeam")
   }
 }
@@ -85,8 +85,8 @@ export async function getSwimmersFromTeam(teamId: string | undefined) {
   const swimmers = await db.swimmer.findMany({
     where: {
       teamId,
-    }, 
-    include: { 
+    },
+    include: {
       data: true,
       user: true,
     }
