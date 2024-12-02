@@ -1,4 +1,3 @@
-import { CoachNavbar } from "@/components/coach/coach-navbar";
 import { getTeamByCoachId } from "@/data/team";
 import { currentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";

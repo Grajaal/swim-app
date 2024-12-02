@@ -14,11 +14,44 @@ export default function ChatPage() {
   const [input, setInput] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
 
-  const handleSendMessage = () => {};
+  const handleSendMessage = async () => {
+    if (!input.trim()) return;
+
+    const question = input.trim();
+    setMessages((prev) => [...prev, { content: question, isUser: true }]);
+    setInput("");
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error connecting to AI service");
+      }
+
+
+      const data = await response.json();
+
+      setMessages((prev) => [
+        ...prev,
+        { content: data.botMessage, isUser: false },
+      ])
+
+    } catch (error) {
+      console.error("Error in chat route", error);
+      setMessages((prev) => [
+        ...prev,
+        { content: "Failed to fetch response from AI service", isUser: false },
+      ]);
+    }
+  };
 
   return (
-    <div className="m-4 bg-slate-300 rounded h-full">
-      <div className="inline-flex items-center border-b mt-0">
+    <div className="m-4 bg-sidebar rounded h-full">
+      <div className="inline-flex items-center border-b w-full">
         <Input
           placeholder="Pregunta a tu asistente"
           className="border-none focus-visible:ring-0 !text-lg h-12 w-[90%]"
