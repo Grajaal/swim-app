@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { create } from "domain";
 import { executeQuery } from "@/actions/execute-query";
 import { Loading } from "@/components/loading";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type Message = {
   content: string;
@@ -141,7 +142,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="m-4 bg-sidebar rounded h-full">
+    <div className="flex flex-col flex-1 h-full m-4 bg-sidebar rounded-xl">
       <div className="inline-flex items-center border-b w-full">
         <Input
           disabled={isLoading}
@@ -160,30 +161,32 @@ export default function ChatPage() {
           type="text"
         />
       </div>
-      <div className="h-[300px] p-6 space-y-6">
-        {messages.map((message, index) => (
-          <div key={index} className="flex text-sm gap-3 items-center">
-            {message.isUser ? (
-              <User className="h-4 w-4" />
-            ) : (
-              <Bot className="h-4 w-4" />
-            )}
-            <div className="flex-1 space-y-2">
-              <div className="prose prose-invert max-w-none">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {message.content}
-                </ReactMarkdown>
+      <ScrollArea className="h-full flex-1 px-10 py-6" >
+        <div className="space-y-4">
+          {messages.map((message, index) => (
+            <div key={index} className="flex text-sm gap-3 items-start">
+              {message.isUser ? (
+                <User className="h-4 w-4 mt-1.5" />
+              ) : (
+                <Bot className="h-4 w-4 mt-1.5" />
+              )}
+              <div className="flex-1 space-y-2 bg-background px-4 py-2 rounded-xl">
+                <div className="prose text-foreground max-w-none">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {message.content}
+                  </ReactMarkdown>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-        {isLoading && (
-          <div className="flex text-sm gap-3 items-center">
-            <Bot className="h-4 w-4" />
-            <Loading />
-          </div>
-        )}
-      </div>
-    </div>
+          ))}
+          {isLoading && (
+            <div className="flex text-sm gap-3 items-center">
+              <Bot className="h-4 w-4" />
+              <Loading />
+            </div>
+          )}
+        </div>
+      </ScrollArea>
+    </div >
   );
 }

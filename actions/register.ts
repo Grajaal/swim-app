@@ -31,13 +31,13 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     data: {
       name,
       email,
-      password: hashedPassword,
+      password,
       role,
     },
   });
 
   if (values.role === Role.coach) {
-    
+
     const createdTeam = await createTeam();
 
     await db.coach.create({
@@ -50,7 +50,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     db.user.update({
       where: {
         id: createdUser.id,
-      }, 
+      },
       data: {
         hasTeam: true
       }

@@ -1,5 +1,5 @@
 "use client";
-import { Home, LogOut, BotMessageSquare } from "lucide-react";
+import { Home, LogOut, BotMessageSquare, ChartBar } from "lucide-react";
 import { usePathname } from "next/navigation";
 import {
   Sidebar,
@@ -69,6 +69,23 @@ export function CoachSidebar({
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              variant={
+                pathname === "/dashboard/statistics" ? "outline" : "default"
+              }
+              size="lg"
+              asChild
+            >
+              <Link href="/dashboard/statistics">
+                <div className="inline-flex items-center space-x-2 ml-2">
+                  <ChartBar className="h-4 w-4" />
+                  <span className="text-lg">Estadísticas</span>
+                </div>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter>
@@ -88,6 +105,6 @@ export function CoachSidebar({
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarFooter>
-    </Sidebar>
+    </Sidebar >
   );
 }

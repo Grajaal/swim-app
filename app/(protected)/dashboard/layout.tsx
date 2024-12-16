@@ -35,7 +35,7 @@ export default async function DasboardLayout({
         <CoachSidebar user={user} />
         <SidebarInset>
           <CoachHeader />
-          <div className="flex flex-col h-full]">{children}</div>
+          <div className="flex flex-col h-screen]">{children}</div>
         </SidebarInset>
       </SidebarProvider>
     );

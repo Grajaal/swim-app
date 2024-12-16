@@ -15,7 +15,7 @@ model User {
   password      String?
   role          Role?
   image         String?
-  hasTeam       Boolean   @default(false)
+  hasTeam       Boolean   @default(false) @map("has_team")
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
   accounts      Account[]
@@ -27,7 +27,7 @@ model User {
 
 model Coach {
   id     String @id
-  teamId String @unique
+  teamId String @unique @map("team_id")
   user   User   @relation(fields: [id], references: [id])
   team   Team   @relation(fields: [teamId], references: [id])
 
@@ -36,7 +36,7 @@ model Coach {
 
 model Swimmer {
   id      String        @id
-  teamId  String?
+  teamId  String?       @map("team_id")
   groupId String?       @map("swimmer_group_id")
   user    User          @relation(fields: [id], references: [id])
   team    Team?         @relation(fields: [teamId], references: [id])
@@ -66,7 +66,7 @@ model SwimmerData {
 model Group {
   id       String    @id @default(cuid())
   name     String
-  teamId   String
+  teamId   String    @map("team_id")
   team     Team      @relation(fields: [teamId], references: [id])
   swimmers Swimmer[] @relation("GroupToSwimmer")
 
