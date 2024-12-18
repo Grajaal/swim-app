@@ -47,7 +47,7 @@ const colors = [
 //   },
 // } satisfies ChartConfig
 
-export function SleepChart({
+export function StressChart({
   className,
 }: {
   className?: string;
@@ -68,7 +68,7 @@ export function SleepChart({
   const chartData = days.map((day, dayIndex) => {
     const dayData: Record<string, string | number> = { day };
     selectedSwimmers.forEach((swimmer) => {
-      dayData[swimmer.id] = swimmer.data[dayIndex].sleepHours || 0;
+      dayData[swimmer.id] = swimmer.data[dayIndex].stress || 0;
     })
     return dayData;
   })
@@ -77,7 +77,7 @@ export function SleepChart({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle>Horas de sueño</CardTitle>
+        <CardTitle>Estrés</CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -97,6 +97,7 @@ export function SleepChart({
               tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
             />
+
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             {selectedSwimmers.map((swimmer, index) => (
               <Line

@@ -1,3 +1,4 @@
+
 "use client"
 
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
@@ -47,7 +48,7 @@ const colors = [
 //   },
 // } satisfies ChartConfig
 
-export function SleepChart({
+export function MuscleChart({
   className,
 }: {
   className?: string;
@@ -68,7 +69,7 @@ export function SleepChart({
   const chartData = days.map((day, dayIndex) => {
     const dayData: Record<string, string | number> = { day };
     selectedSwimmers.forEach((swimmer) => {
-      dayData[swimmer.id] = swimmer.data[dayIndex].sleepHours || 0;
+      dayData[swimmer.id] = swimmer.data[dayIndex].musclePain || 0;
     })
     return dayData;
   })
@@ -77,7 +78,7 @@ export function SleepChart({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle>Horas de sueño</CardTitle>
+        <CardTitle>Dolor muscular</CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -111,6 +112,6 @@ export function SleepChart({
           </LineChart>
         </ChartContainer>
       </CardContent>
-    </Card>
+    </Card >
   )
 }

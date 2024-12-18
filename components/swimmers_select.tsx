@@ -2,6 +2,7 @@
 
 import { useStatistics } from "@/context/statistics-context";
 import { SwimmerWithUser } from "@/prisma/custom";
+import { useEffect } from "react";
 
 import Select, { ActionMeta, MultiValue } from "react-select";
 import makeAnimated from 'react-select/animated';
@@ -26,6 +27,10 @@ export function SwimmersSelect({
     label: swimmer.user.name ?? "Sin nombre",
   }))
 
+  useEffect(() => {
+    setSwimmers(swimmers);
+  }, [])
+
   const handleChange = (selected: MultiValue<SwimmerOption>, actionMeta: ActionMeta<SwimmerOption>) => {
     setSwimmers(selected.map((swimmer) => swimmer.value));
   }
@@ -39,6 +44,7 @@ export function SwimmersSelect({
       placeholder="Selecciona a tus nadadores"
       options={options}
       onChange={handleChange}
+      defaultValue={options}
     />
   )
 }

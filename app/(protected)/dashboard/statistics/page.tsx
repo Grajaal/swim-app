@@ -1,4 +1,8 @@
+import { FatigueChart } from "@/components/charts/fatigue-chart";
+import { MuscleChart } from "@/components/charts/muscle-chart";
+import { QualityChart } from "@/components/charts/quality-chart";
 import { SleepChart } from "@/components/charts/sleep-chart";
+import { StressChart } from "@/components/charts/stress-chart";
 import { SwimmersSelect } from "@/components/swimmers_select";
 import { StatisticsProvider } from "@/context/statistics-context";
 import { getSwimmersFromTeam } from "@/data/swimmer"
@@ -15,11 +19,11 @@ export default async function StatisticsPage() {
       <div>
         <SwimmersSelect swimmers={swimmers} />
         <div className="grid grid-cols-6 grid-rows-[2fr_1fr] gap-4 p-4 h-screen">
-          <SleepChart className="col-span-3" title="Horas de sueño" />
-          <SleepChart className="col-span-3" title="Calidad de sueño" />
-          <SleepChart className="col-span-2" title="Fatiga de sueño" />
-          <SleepChart className="col-span-2" title="Dolor muscular" />
-          <SleepChart className="col-span-2" title="Estrés" />
+          <SleepChart className="col-span-3" />
+          <QualityChart className="col-span-3" />
+          <FatigueChart className="col-span-2" />
+          <MuscleChart className="col-span-2" />
+          <StressChart className="col-span-2" />
         </div>
       </div>
     </StatisticsProvider >
